@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.unach.siget.accesodatos;
+package ec.edu.unach.siget.rnegocio.entidades;
 
 /**
  *
- * @author JORGE
+ * @author MI PC
  */
-public class Parametros {
+public class Usuario {
     
 }
