@@ -10,5 +10,12 @@ package ec.edu.unach.siget.rnegocio.entidades;
  * @author MI PC
  */
 public class Periodos {
-    
+    int Codigo_Serial;
+    char Nombre;
+    //date  Fecha_Inicio;
+    //date Fecha_Fin;
+    int Tipo;
+    char Observaciones;
+    int Codigo_Sicoa;
+    int Estado;
 }

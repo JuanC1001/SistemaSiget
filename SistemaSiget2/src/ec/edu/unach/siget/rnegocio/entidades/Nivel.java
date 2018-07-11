@@ -10,5 +10,11 @@ package ec.edu.unach.siget.rnegocio.entidades;
  * @author MI PC
  */
 public class Nivel {
+    int Codigo_Serial;
+    int Codigo_Sicoa;
+    char Nombre;
+    char Paralelo; 
+    char Modalidad;
+    int Codigo_Escuela;
     
 }

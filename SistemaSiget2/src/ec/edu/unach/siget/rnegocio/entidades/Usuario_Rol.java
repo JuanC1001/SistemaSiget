@@ -10,5 +10,9 @@ package ec.edu.unach.siget.rnegocio.entidades;
  * @author MI PC
  */
 public class Usuario_Rol {
+   int Codigo;
+   int Codigo_Rol;
+   int Codigo_Usuario;
+   int Estado;
     
 }

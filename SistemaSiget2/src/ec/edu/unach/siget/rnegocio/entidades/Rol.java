@@ -11,4 +11,5 @@ package ec.edu.unach.siget.rnegocio.entidades;
  */
 public class Rol {
     
+      
 }

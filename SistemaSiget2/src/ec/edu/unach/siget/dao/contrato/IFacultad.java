@@ -5,6 +5,7 @@
  */
 package ec.edu.unach.siget.dao.contrato;
 
+import ec.edu.unach.siget.rnegocio.entidades.Facultad;
 import java.util.List;
 
 /**
@@ -12,9 +13,9 @@ import java.util.List;
  * @author MI PC
  */
 public interface IFacultad {
-//    int  insertar(Facultad categoria);
-//    int modificar(Categoria categoria);
-//    int eliminar(Categoria categoria);
-//    Categoria obtener(int id)throws Exception;
-//    List<Categoria> obtener()throws Exception;
+        int  insertar(Facultad facultad);
+        int modificar(Facultad facultad);
+        int eliminar(Facultad facultad);
+        Facultad obtener(int id)throws Exception;
+        List<Facultad> obtener()throws Exception;
 }
