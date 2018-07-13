@@ -24,7 +24,11 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
     public FrmEscuela() {
         initComponents();
         txtCodigo.setEnabled(true);
-        txtCoodigo.setEnabled(false);
+        txtCodigoFacultad.setEnabled(true);
+        txtNombre.setEnabled(false);
+        txtDescrip.setEnabled(false);
+        txtCodigoSicoa.setEnabled(false);
+
         btnInsertar1.setEnabled(false);
         btnEliminar1.setEnabled(false);
         btnNuevo1.setEnabled(true);
@@ -63,8 +67,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             if (escueladao.modificar(escuela) > 0) {
                 JOptionPane.showMessageDialog(this, "Escuela Modificada!!",
                         "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
-                txtCodigo.setText(null);
-                txtCoodigo.setText(null);
+
                 btnInsertar1.setEnabled(false);
                 btnNuevo1.setEnabled(true);
                 btnEliminar1.setEnabled(true);
@@ -73,10 +76,19 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                 btnCancelar1.setEnabled(false);
                 btnCancelar1.setVisible(false);
                 btnInsertar1.setVisible(false);
-                txtCodigo.setEnabled(true);
-                txtCoodigo.setEnabled(false);
                 btnGuardar1.setVisible(false);
                 btnGuardar1.setEnabled(false);
+                txtCoodigo.setText(null);
+                txtCodigoFacultad.setText(null);
+                txtNombre.setText(null);
+                txtDescrip.setText(null);
+                txtCodigoSicoa.setText(null);
+
+                txtCoodigo.setEnabled(true);
+                txtCodigoFacultad.setEnabled(true);
+                txtNombre.setEnabled(false);
+                txtDescrip.setEnabled(false);
+                txtCodigoSicoa.setEnabled(false);
                 cargarTabla();
             } else {
                 JOptionPane.showMessageDialog(this, "Escuela NO Modificada!!",
@@ -96,8 +108,17 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                 if (escueladao.eliminar(escuela) > 0) {
                     JOptionPane.showMessageDialog(this, "Escuela eliminada!!",
                             "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
-                    txtCodigo.setText(null);
                     txtCoodigo.setText(null);
+                    txtCodigoFacultad.setText(null);
+                    txtNombre.setText(null);
+                    txtDescrip.setText(null);
+                    txtCodigoSicoa.setText(null);
+
+                    txtCoodigo.setEnabled(true);
+                    txtCodigoFacultad.setEnabled(true);
+                    txtNombre.setEnabled(false);
+                    txtDescrip.setEnabled(false);
+                    txtCodigoSicoa.setEnabled(false);
                     cargarTabla();
                 } else {
                     JOptionPane.showMessageDialog(this, "Escuela NO Eliminado!!",
@@ -340,7 +361,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         jLabel9.setText("Codigo");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Nombre");
+        jLabel4.setText("Codigo Facultad");
 
         txtCoodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -373,13 +394,13 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel10.setText("Codigo");
+        jLabel10.setText("Nombre");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setText("Nombre");
+        jLabel5.setText("Descripcion");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setText("Nombre");
+        jLabel6.setText("Codigo Sicoa");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -390,21 +411,23 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigoFacultad)
-                            .addComponent(txtCoodigo)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtCoodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                            .addComponent(txtCodigoFacultad)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDescrip, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                             .addComponent(txtNombre)
-                            .addComponent(txtDescrip)
                             .addComponent(txtCodigoSicoa))))
                 .addContainerGap())
         );
@@ -650,10 +673,20 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         btnCancelar1.setVisible(false);
         btnGuardar1.setVisible(false);
         btnInsertar1.setVisible(false);
-        txtCodigo.setEnabled(true);
-        txtCoodigo.setEnabled(false);
-        txtCodigo.setText(null);
+
         txtCoodigo.setText(null);
+        txtCodigoFacultad.setText(null);
+        txtNombre.setText(null);
+        txtDescrip.setText(null);
+        txtCodigoSicoa.setText(null);
+
+        txtCoodigo.setEnabled(true);
+        txtCodigoFacultad.setEnabled(true);
+        txtNombre.setEnabled(false);
+        txtDescrip.setEnabled(false);
+        txtCodigoSicoa.setEnabled(false);
+
+
     }//GEN-LAST:event_btnCancelar1ActionPerformed
 
     private void btnInsertar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertar1ActionPerformed
@@ -675,10 +708,17 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             btnCancelar1.setVisible(false);
             btnGuardar1.setVisible(false);
             btnInsertar1.setVisible(false);
-            txtCodigo.setEnabled(true);
-            txtCoodigo.setEnabled(false);
-            txtCodigo.setText(null);
             txtCoodigo.setText(null);
+            txtCodigoFacultad.setText(null);
+            txtNombre.setText(null);
+            txtDescrip.setText(null);
+            txtCodigoSicoa.setText(null);
+
+            txtCoodigo.setEnabled(true);
+            txtCodigoFacultad.setEnabled(true);
+            txtNombre.setEnabled(false);
+            txtDescrip.setEnabled(false);
+            txtCodigoSicoa.setEnabled(false);
             cargarTabla();
         } else {
             JOptionPane.showMessageDialog(this, "Escuela NO insertado!!",
@@ -695,10 +735,13 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         btnCancelar1.setVisible(true);
         btnInsertar1.setVisible(true);
         btnCancelar1.setEnabled(true);
-        txtCodigo.setEnabled(true);
+
         txtCoodigo.setEnabled(true);
-        txtCodigo.setText(null);
-        txtCoodigo.setText(null);
+        txtCodigoFacultad.setEnabled(true);
+        txtNombre.setEnabled(true);
+        txtDescrip.setEnabled(true);
+        txtCodigoSicoa.setEnabled(true);
+
     }//GEN-LAST:event_btnNuevo1ActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
@@ -721,8 +764,8 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                         "Buscar", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "No existe ninguna escuela con ese codigo",
-                        "Buscar", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No existe ninguna escuela con ese codigo",
+                    "Buscar", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
@@ -732,8 +775,6 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed
-        txtCodigo.setEnabled(false);
-        txtCoodigo.setEnabled(true);
         btnInsertar1.setEnabled(false);
         btnEliminar1.setEnabled(false);
         btnNuevo1.setEnabled(false);
@@ -743,6 +784,12 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         btnCancelar1.setVisible(true);
         btnGuardar1.setVisible(true);
         btnGuardar1.setEnabled(true);
+
+        txtCoodigo.setEnabled(false);
+        txtCodigoFacultad.setEnabled(true);
+        txtNombre.setEnabled(true);
+        txtDescrip.setEnabled(true);
+        txtCodigoSicoa.setEnabled(true);
     }//GEN-LAST:event_btnModificar1ActionPerformed
 
     private void btnListar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListar1ActionPerformed
