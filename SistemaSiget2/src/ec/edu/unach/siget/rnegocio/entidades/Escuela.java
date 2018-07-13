@@ -12,14 +12,14 @@ package ec.edu.unach.siget.rnegocio.entidades;
 public class Escuela {
    private int Codigo;
   private int Codigo_Facultad;
-  private char Nombre;
-  private char Descripcion;
+  private String Nombre;
+  private String Descripcion;
   private int Codigo_Sicoa;
     public Escuela(){
     
     }
 
-    public Escuela(int Codigo, int Codigo_Facultad, char Nombre, char Descripcion, int Codigo_Sicoa) {
+    public Escuela(int Codigo, int Codigo_Facultad, String Nombre, String Descripcion, int Codigo_Sicoa) {
         this.Codigo = Codigo;
         this.Codigo_Facultad = Codigo_Facultad;
         this.Nombre = Nombre;
@@ -51,19 +51,19 @@ public class Escuela {
         this.Codigo_Facultad = Codigo_Facultad;
     }
 
-    public char getNombre() {
+    public String getNombre() {
         return Nombre;
     }
 
-    public void setNombre(char Nombre) {
+    public void setNombre(String Nombre) {
         this.Nombre = Nombre;
     }
 
-    public char getDescripcion() {
+    public String getDescripcion() {
         return Descripcion;
     }
 
-    public void setDescripcion(char Descripcion) {
+    public void setDescripcion(String Descripcion) {
         this.Descripcion = Descripcion;
     }
 

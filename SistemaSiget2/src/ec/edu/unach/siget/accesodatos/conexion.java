@@ -20,7 +20,7 @@ import java.util.List;
 public class conexion {
      private Connection con;
     final String DRIVER = "org.postgresql.Driver";
-    final String URL = "jdbc:postgresql://localhost:5433/sistema_facturacion";
+    final String URL = "jdbc:postgresql://localhost:5432/sistema_siget";
     final String USUARIO = "postgres";
     final String CLAVE = "unach1001";
 
