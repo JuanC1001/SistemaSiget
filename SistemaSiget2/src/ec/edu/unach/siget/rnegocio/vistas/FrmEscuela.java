@@ -2,8 +2,11 @@ package ec.edu.unach.siget.rnegocio.vistas;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import ec.edu.unach.siget.dao.contrato.IEscuela;
+import ec.edu.unach.siget.dao.contrato.IFacultad;
 import ec.edu.unach.siget.dao.implementacion.EscuelaImp;
+import ec.edu.unach.siget.dao.implementacion.FacultadImp;
 import ec.edu.unach.siget.rnegocio.entidades.Escuela;
+import ec.edu.unach.siget.rnegocio.entidades.Facultad;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -24,7 +27,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
     public FrmEscuela() {
         initComponents();
         txtCodigo.setEnabled(true);
-        txtCodigoFacultad.setEnabled(true);
+        cmbFacultad.setEnabled(true);
         txtNombre.setEnabled(false);
         txtDescrip.setEnabled(false);
         txtCodigoSicoa.setEnabled(false);
@@ -57,13 +60,18 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         }
     }
 
-    public void modificar() {
+    public void modificar() throws Exception {
         int valor = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea modificar la escuela?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (valor == JOptionPane.YES_OPTION) {
             Escuela escuela = new Escuela();
             IEscuela escueladao = new EscuelaImp();
+            IFacultad facultaddao = new FacultadImp();
             escuela.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
-            escuela.setNombre(this.txtCoodigo.getText());
+            escuela.setFacultad(facultaddao.obtener(((Facultad) cmbFacultad.getSelectedItem()).getCodigo()));
+            escuela.setNombre(this.txtNombre.getText());
+            escuela.setDescripcion(this.txtDescrip.getText());
+            escuela.setCodigo_Sicoa(Integer.parseInt(this.txtCodigoSicoa.getText()));
+
             if (escueladao.modificar(escuela) > 0) {
                 JOptionPane.showMessageDialog(this, "Escuela Modificada!!",
                         "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
@@ -79,13 +87,12 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                 btnGuardar1.setVisible(false);
                 btnGuardar1.setEnabled(false);
                 txtCoodigo.setText(null);
-                txtCodigoFacultad.setText(null);
                 txtNombre.setText(null);
                 txtDescrip.setText(null);
                 txtCodigoSicoa.setText(null);
 
                 txtCoodigo.setEnabled(true);
-                txtCodigoFacultad.setEnabled(true);
+                cmbFacultad.setEnabled(true);
                 txtNombre.setEnabled(false);
                 txtDescrip.setEnabled(false);
                 txtCodigoSicoa.setEnabled(false);
@@ -109,13 +116,12 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Escuela eliminada!!",
                             "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
                     txtCoodigo.setText(null);
-                    txtCodigoFacultad.setText(null);
                     txtNombre.setText(null);
                     txtDescrip.setText(null);
                     txtCodigoSicoa.setText(null);
 
                     txtCoodigo.setEnabled(true);
-                    txtCodigoFacultad.setEnabled(true);
+                    cmbFacultad.setEnabled(true);
                     txtNombre.setEnabled(false);
                     txtDescrip.setEnabled(false);
                     txtCodigoSicoa.setEnabled(false);
@@ -161,13 +167,13 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtCoodigo = new javax.swing.JTextField();
-        txtCodigoFacultad = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtDescrip = new javax.swing.JTextField();
         txtCodigoSicoa = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        cmbFacultad = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnListar1 = new javax.swing.JButton();
         btnModificar1 = new javax.swing.JButton();
@@ -342,16 +348,16 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(210, 210, 210)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(20, 20, 20))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -366,12 +372,6 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         txtCoodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCoodigoActionPerformed(evt);
-            }
-        });
-
-        txtCodigoFacultad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoFacultadActionPerformed(evt);
             }
         });
 
@@ -402,33 +402,27 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Codigo Sicoa");
 
+        cmbFacultad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCoodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                            .addComponent(txtCodigoFacultad)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDescrip, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                            .addComponent(txtNombre)
-                            .addComponent(txtCodigoSicoa))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtDescrip)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtCoodigo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtCodigoSicoa)
+                    .addComponent(cmbFacultad, 0, 374, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -449,7 +443,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtCoodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCodigoFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -564,7 +558,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                 .addComponent(btnInsertar1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         tblListarEscuela.setModel(new javax.swing.table.DefaultTableModel(
@@ -587,7 +581,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -601,7 +595,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -660,7 +654,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
-        modificar();
+//        modificar();
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
@@ -675,13 +669,12 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         btnInsertar1.setVisible(false);
 
         txtCoodigo.setText(null);
-        txtCodigoFacultad.setText(null);
         txtNombre.setText(null);
         txtDescrip.setText(null);
         txtCodigoSicoa.setText(null);
 
         txtCoodigo.setEnabled(true);
-        txtCodigoFacultad.setEnabled(true);
+        cmbFacultad.setEnabled(true);
         txtNombre.setEnabled(false);
         txtDescrip.setEnabled(false);
         txtCodigoSicoa.setEnabled(false);
@@ -694,8 +687,11 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         Escuela escuela = new Escuela();
         IEscuela escueladao = new EscuelaImp();
         escuela.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
-        escuela.setNombre(this.txtCoodigo.getText());
 
+
+        escuela.setNombre(this.txtNombre.getText());
+        escuela.setDescripcion(this.txtDescrip.getText());
+        escuela.setCodigo_Sicoa(Integer.parseInt(this.txtCodigoSicoa.getText()));
         if (escueladao.insertar(escuela) > 0) {
             JOptionPane.showMessageDialog(this, "Escuela insertado!!",
                     "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
@@ -709,13 +705,12 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             btnGuardar1.setVisible(false);
             btnInsertar1.setVisible(false);
             txtCoodigo.setText(null);
-            txtCodigoFacultad.setText(null);
             txtNombre.setText(null);
             txtDescrip.setText(null);
             txtCodigoSicoa.setText(null);
 
             txtCoodigo.setEnabled(true);
-            txtCodigoFacultad.setEnabled(true);
+            cmbFacultad.setEnabled(true);
             txtNombre.setEnabled(false);
             txtDescrip.setEnabled(false);
             txtCodigoSicoa.setEnabled(false);
@@ -737,7 +732,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         btnCancelar1.setEnabled(true);
 
         txtCoodigo.setEnabled(true);
-        txtCodigoFacultad.setEnabled(true);
+        cmbFacultad.setEnabled(true);
         txtNombre.setEnabled(true);
         txtDescrip.setEnabled(true);
         txtCodigoSicoa.setEnabled(true);
@@ -786,7 +781,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         btnGuardar1.setEnabled(true);
 
         txtCoodigo.setEnabled(false);
-        txtCodigoFacultad.setEnabled(true);
+        cmbFacultad.setEnabled(true);
         txtNombre.setEnabled(true);
         txtDescrip.setEnabled(true);
         txtCodigoSicoa.setEnabled(true);
@@ -799,10 +794,6 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
     private void txtCoodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCoodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCoodigoActionPerformed
-
-    private void txtCodigoFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoFacultadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoFacultadActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
@@ -820,7 +811,10 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         IEscuela escueladao = new EscuelaImp();
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Codigo");
+        modelo.addColumn("Codigo Facultad");
         modelo.addColumn("Nombre");
+        modelo.addColumn("Descripción");
+        modelo.addColumn("Codigo Sicoa");
         List<Escuela> lstprov = new ArrayList<>();
         try {
             lstprov = escueladao.obtener();
@@ -829,7 +823,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                     "Error de obtencion", JOptionPane.INFORMATION_MESSAGE);
         }
         for (Escuela prov : lstprov) {
-            modelo.addRow(new Object[]{prov.getCodigo(), prov.getNombre()});
+            modelo.addRow(new Object[]{prov.getCodigo(), prov.getFacultad().getNombre(), prov.getNombre(), prov.getDescripcion(), prov.getCodigo_Sicoa()});
         }
         tblListarEscuela.setModel(modelo);
     }
@@ -850,6 +844,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificar1;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnNuevo1;
+    private javax.swing.JComboBox<String> cmbFacultad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
@@ -867,7 +862,6 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblListarEscuela;
     private javax.swing.JTable tblListarProveedor;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtCodigoFacultad;
     private javax.swing.JTextField txtCodigoSicoa;
     private javax.swing.JTextField txtCoodigo;
     private javax.swing.JTextField txtDescrip;

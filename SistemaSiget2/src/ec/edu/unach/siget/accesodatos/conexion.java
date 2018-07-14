@@ -22,7 +22,7 @@ public class conexion {
     final String DRIVER = "org.postgresql.Driver";
     final String URL = "jdbc:postgresql://localhost:5432/sistema_siget";
     final String USUARIO = "postgres";
-    final String CLAVE = "unach1001";
+    final String CLAVE = "unach";
 
     public void conectar() {
         try {

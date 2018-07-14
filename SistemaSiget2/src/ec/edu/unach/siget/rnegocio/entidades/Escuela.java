@@ -11,7 +11,7 @@ package ec.edu.unach.siget.rnegocio.entidades;
  */
 public class Escuela {
    private int Codigo;
-  private int Codigo_Facultad;
+  private Facultad facultad;
   private String Nombre;
   private String Descripcion;
   private int Codigo_Sicoa;
@@ -19,9 +19,9 @@ public class Escuela {
     
     }
 
-    public Escuela(int Codigo, int Codigo_Facultad, String Nombre, String Descripcion, int Codigo_Sicoa) {
+    public Escuela(int Codigo, Facultad facultad, String Nombre, String Descripcion, int Codigo_Sicoa) {
         this.Codigo = Codigo;
-        this.Codigo_Facultad = Codigo_Facultad;
+        this.facultad = facultad;
         this.Nombre = Nombre;
         this.Descripcion = Descripcion;
         this.Codigo_Sicoa = Codigo_Sicoa;
@@ -43,12 +43,12 @@ public class Escuela {
         this.Codigo = Codigo;
     }
 
-    public int getCodigo_Facultad() {
-        return Codigo_Facultad;
+    public Facultad getFacultad() {
+        return facultad;
     }
 
-    public void setCodigo_Facultad(int Codigo_Facultad) {
-        this.Codigo_Facultad = Codigo_Facultad;
+    public void setFacultad(Facultad facultad) {
+        this.facultad = facultad;
     }
 
     public String getNombre() {

@@ -8,6 +8,7 @@ package ec.edu.unach.siget.dao.implementacion;
 import ec.edu.unach.siget.accesodatos.conexion;
 import ec.edu.unach.siget.accesodatos.parametro;
 import ec.edu.unach.siget.dao.contrato.IEscuela;
+import ec.edu.unach.siget.dao.contrato.IFacultad;
 import ec.edu.unach.siget.rnegocio.entidades.Escuela;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -25,11 +26,11 @@ public class EscuelaImp implements IEscuela {
         String sql = "SELECT * FROM actividades.fn_insertar_escuelas(?,?,?,?,?)";
         List<parametro> lstpar = new ArrayList<>();
         lstpar.add(new parametro(1, escuela.getCodigo()));
-        lstpar.add(new parametro(2, escuela.getCodigo_Facultad()));
+        lstpar.add(new parametro(2, escuela.getFacultad().getCodigo()));
         lstpar.add(new parametro(3, escuela.getNombre()));
         lstpar.add(new parametro(4, escuela.getDescripcion()));
         lstpar.add(new parametro(5, escuela.getCodigo_Sicoa()));
-        
+
         conexion con = new conexion();
 
         try {
@@ -60,11 +61,13 @@ public class EscuelaImp implements IEscuela {
     public int modificar(Escuela escuela) {
         int numFilasAfectadas = 0;
         conexion con = new conexion();
-        String sql = "UPDATE escuela  SET  nombre=?"
-                + "  where codigo=?  ";
+        String sql = "SELECT actividades.fn_actualizar_escuelas(?,?,?,?,?);";
         List<parametro> lstPar = new ArrayList<>();
-        lstPar.add(new parametro(1, escuela.getNombre()));
-        lstPar.add(new parametro(2, escuela.getCodigo()));
+        lstPar.add(new parametro(1, escuela.getCodigo()));
+        lstPar.add(new parametro(2, escuela.getFacultad().getCodigo()));
+        lstPar.add(new parametro(3, escuela.getNombre()));
+        lstPar.add(new parametro(4, escuela.getDescripcion()));
+        lstPar.add(new parametro(5, escuela.getCodigo_Sicoa()));
 
         numFilasAfectadas = con.ejecutaComando(sql, lstPar);
         con.desconectar();
@@ -75,8 +78,7 @@ public class EscuelaImp implements IEscuela {
     @Override
     public Escuela obtener(int id) throws Exception {
         Escuela escuela = null;
-        String sql = "SELECT codigo, nombre"
-                + " FROM escuela where codigo =?";
+        String sql = "SELECT codigo, nombre";
         conexion con = new conexion();
         con.conectar();
         try {
@@ -85,8 +87,13 @@ public class EscuelaImp implements IEscuela {
             ResultSet rst = con.ejecutarQuery(sql, lstpar);
             while (rst.next()) {
                 escuela = new Escuela();
+                IFacultad facultaddao = new FacultadImp();
+
                 escuela.setCodigo(rst.getInt(1));
-                escuela.setNombre(rst.getString(2));
+                escuela.setFacultad(facultaddao.obtener(rst.getInt(2)));
+                escuela.setNombre(rst.getString(3));
+                escuela.setDescripcion(rst.getString(4));
+                escuela.setCodigo_Sicoa(rst.getInt(5));
             }
         } catch (Exception e) {
             throw e;
@@ -100,15 +107,19 @@ public class EscuelaImp implements IEscuela {
     public List<Escuela> obtener() throws Exception {
         List<Escuela> lista = new ArrayList<>();
 
-        String sql = " SELECT codigo, nombre FROM escuela ";
+        String sql = "select *from actividades.fn_listar_escuelas()";
         conexion con = new conexion();
         con.conectar();
         try {
             ResultSet rst = con.ejecutarQuery(sql);
             while (rst.next()) {
                 Escuela escuela = new Escuela();
+                IFacultad facultaddao = new FacultadImp();
                 escuela.setCodigo(rst.getInt(1));
-                escuela.setNombre(rst.getString(2));
+                escuela.setFacultad(facultaddao.obtener(rst.getInt(2)));
+                escuela.setNombre(rst.getString(3));
+                escuela.setDescripcion(rst.getString(4));
+                escuela.setCodigo_Sicoa(rst.getInt(5));
                 lista.add(escuela);
             }
         } catch (Exception e) {
