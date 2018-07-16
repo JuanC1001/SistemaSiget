@@ -10,12 +10,14 @@ package ec.edu.unach.siget.rnegocio.entidades;
  * @author MI PC
  */
 public class Facultad {
-   private int Codigo;
-  private String Nombre; 
-  private String Descripcion;
-  private int Codigo_Sicoa;
-  public Facultad(){
-  }
+
+    private int Codigo;
+    private String Nombre;
+    private String Descripcion;
+    private int Codigo_Sicoa;
+
+    public Facultad() {
+    }
 
     public Facultad(int Codigo, String Nombre, String Descripcion, int Codigo_Sicoa) {
         this.Codigo = Codigo;
@@ -24,7 +26,6 @@ public class Facultad {
         this.Codigo_Sicoa = Codigo_Sicoa;
     }
 
- 
     public int getCodigo_Sicoa() {
         return Codigo_Sicoa;
     }
@@ -56,6 +57,8 @@ public class Facultad {
     public void setDescripcion(String Descripcion) {
         this.Descripcion = Descripcion;
     }
-  
-  
+
+    public String toString() {
+        return this.getCodigo() + " - " + this.getNombre();
+    }
 }

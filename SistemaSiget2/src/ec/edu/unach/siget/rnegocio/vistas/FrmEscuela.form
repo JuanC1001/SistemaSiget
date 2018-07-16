@@ -311,7 +311,7 @@
                       <Component id="txtNombre" alignment="1" max="32767" attributes="0"/>
                       <Component id="txtCoodigo" alignment="1" max="32767" attributes="0"/>
                       <Component id="txtCodigoSicoa" max="32767" attributes="0"/>
-                      <Component id="cmbFacultad" pref="374" max="32767" attributes="0"/>
+                      <Component id="cmbFacultad" min="-2" pref="374" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -414,16 +414,13 @@
         <Component class="javax.swing.JComboBox" name="cmbFacultad">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
+            <Property name="selectedIndex" type="int" value="-1"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
       </SubComponents>

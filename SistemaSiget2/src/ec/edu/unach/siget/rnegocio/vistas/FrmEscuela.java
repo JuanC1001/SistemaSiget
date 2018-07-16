@@ -11,6 +11,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
@@ -41,6 +43,19 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         btnCancelar1.setVisible(false);
         btnGuardar1.setVisible(false);
         btnInsertar1.setVisible(false);
+
+        IFacultad facultaddao = new FacultadImp();
+        List<Facultad> lstCategoria = new ArrayList<>();
+        try {
+            lstCategoria = facultaddao.obtener();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        for (int i = 0; i < lstCategoria.size(); i++) {
+            cmbFacultad.addItem(lstCategoria.get(i));
+        }
+
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
 
@@ -173,7 +188,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        cmbFacultad = new javax.swing.JComboBox<>();
+        cmbFacultad = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         btnListar1 = new javax.swing.JButton();
         btnModificar1 = new javax.swing.JButton();
@@ -402,7 +417,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Codigo Sicoa");
 
-        cmbFacultad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbFacultad.setSelectedIndex(-1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -422,7 +437,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                     .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtCoodigo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtCodigoSicoa)
-                    .addComponent(cmbFacultad, 0, 374, Short.MAX_VALUE))
+                    .addComponent(cmbFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -654,7 +669,11 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
-//        modificar();
+        try {
+            modificar();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmEscuela.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
@@ -687,7 +706,6 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         Escuela escuela = new Escuela();
         IEscuela escueladao = new EscuelaImp();
         escuela.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
-
 
         escuela.setNombre(this.txtNombre.getText());
         escuela.setDescripcion(this.txtDescrip.getText());
@@ -844,7 +862,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificar1;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnNuevo1;
-    private javax.swing.JComboBox<String> cmbFacultad;
+    public static javax.swing.JComboBox cmbFacultad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
