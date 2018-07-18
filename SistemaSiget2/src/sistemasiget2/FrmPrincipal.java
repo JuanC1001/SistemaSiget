@@ -7,6 +7,7 @@ package sistemasiget2;
 
 import ec.edu.unach.siget.rnegocio.vistas.FrmEscuela;
 import ec.edu.unach.siget.rnegocio.vistas.FrmUsuario;
+import javax.swing.border.Border;
 
 /**
  *
@@ -19,6 +20,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
+        
+        escritorio.setBorder(new Imagen());
+        this.setExtendedState(FrmPrincipal.MAXIMIZED_BOTH);
     }
 
     /**
@@ -41,15 +45,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        escritorio.setBackground(new java.awt.Color(255, 255, 255));
+        escritorio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        escritorio.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 626, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 258, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

@@ -53,7 +53,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                     "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         for (int i = 0; i < lstCategoria.size(); i++) {
-            cmbFacultad.addItem(lstCategoria.get(i));
+            cmbFacultad.addItem(lstCategoria.get(i).getNombre());
         }
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -417,7 +417,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Codigo Sicoa");
 
-        cmbFacultad.setSelectedIndex(-1);
+        cmbFacultad.setEditable(true);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -578,13 +578,10 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
 
         tblListarEscuela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane2.setViewportView(tblListarEscuela);
@@ -838,10 +835,10 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             lstprov = escueladao.obtener();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
-                    "Error de obtencion", JOptionPane.INFORMATION_MESSAGE);
+                    "Error de obtencion por aqui", JOptionPane.INFORMATION_MESSAGE);
         }
         for (Escuela prov : lstprov) {
-            modelo.addRow(new Object[]{prov.getCodigo(), prov.getFacultad().getNombre(), prov.getNombre(), prov.getDescripcion(), prov.getCodigo_Sicoa()});
+            modelo.addRow(new Object[]{prov.getCodigo(), prov.getFacultad().getCodigo(), prov.getNombre(), prov.getDescripcion(), prov.getCodigo_Sicoa()});
         }
         tblListarEscuela.setModel(modelo);
     }

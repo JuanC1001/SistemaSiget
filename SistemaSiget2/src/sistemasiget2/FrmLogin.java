@@ -32,7 +32,6 @@ public class FrmLogin extends javax.swing.JFrame {
 
     Usuario usuario = new Usuario();
     private TextAutoCompleter auto;
-    private Usuario usuarios = new Usuario();
 
     public FrmLogin() {
         initComponents();

@@ -107,7 +107,7 @@ public class EscuelaImp implements IEscuela {
     public List<Escuela> obtener() throws Exception {
         List<Escuela> lista = new ArrayList<>();
 
-        String sql = "select *from actividades.fn_listar_escuelas()";
+        String sql = "SELECT codigo, codigo_facultad, nombre, descripcion, codigo_sicoa FROM actividades.escuela;";
         conexion con = new conexion();
         con.conectar();
         try {
@@ -115,6 +115,7 @@ public class EscuelaImp implements IEscuela {
             while (rst.next()) {
                 Escuela escuela = new Escuela();
                 IFacultad facultaddao = new FacultadImp();
+                
                 escuela.setCodigo(rst.getInt(1));
                 escuela.setFacultad(facultaddao.obtener(rst.getInt(2)));
                 escuela.setNombre(rst.getString(3));

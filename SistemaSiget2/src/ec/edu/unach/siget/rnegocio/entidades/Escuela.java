@@ -10,7 +10,7 @@ package ec.edu.unach.siget.rnegocio.entidades;
  * @author MI PC
  */
 public class Escuela {
-   private int Codigo;
+  private int Codigo;
   private Facultad facultad;
   private String Nombre;
   private String Descripcion;

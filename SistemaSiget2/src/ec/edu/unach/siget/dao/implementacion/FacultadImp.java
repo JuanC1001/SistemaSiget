@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author JORGE
  */
-public class FacultadImp implements IFacultad{
+public class FacultadImp implements IFacultad {
 
     @Override
     public int insertar(Facultad facultad) {
@@ -37,8 +37,8 @@ public class FacultadImp implements IFacultad{
 
     @Override
     public Facultad obtener(int id) throws Exception {
-Facultad facultad = null;
-        String sql = "SELECT *FROM actividades.fn_buscar_escuelas(?) ";
+        Facultad facultad = null;
+        String sql = "SELECT *FROM actividades.fn_buscar_facultades(?);";
         conexion con = new conexion();
         con.conectar();
         try {
@@ -62,7 +62,27 @@ Facultad facultad = null;
 
     @Override
     public List<Facultad> obtener() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Facultad> lista = new ArrayList<>();
+        String sql = "SELECT *FROM actividades.fn_listar_facultades();";
+        conexion con = new conexion();
+        con.conectar();
+        try {
+            ResultSet rst = con.ejecutarQuery(sql);
+            while (rst.next()) {
+                Facultad facultad = new Facultad();
+
+                facultad.setCodigo(rst.getInt(1));
+                facultad.setNombre(rst.getString(2));
+                facultad.setDescripcion(rst.getString(3));
+                facultad.setCodigo_Sicoa(rst.getInt(4));
+                lista.add(facultad);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.desconectar();
+        }
+        return lista;
     }
-    
+
 }

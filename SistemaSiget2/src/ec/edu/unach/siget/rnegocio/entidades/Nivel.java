@@ -12,9 +12,9 @@ package ec.edu.unach.siget.rnegocio.entidades;
 public class Nivel {
     int Codigo_Serial;
     int Codigo_Sicoa;
-    char Nombre;
-    char Paralelo; 
-    char Modalidad;
+    String Nombre;
+    String Paralelo; 
+    String Modalidad;
     int Codigo_Escuela;
     
 }
