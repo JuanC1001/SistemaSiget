@@ -36,15 +36,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,11 +62,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         );
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-
-        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu1.setText("Inicio");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenuBar1.add(jMenu1);
 
         jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu2.setText("Facultad");
@@ -115,17 +108,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setText("jMenu5");
-
-        jMenuItem4.setText("Administrad");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu5);
+        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenu1.setText("Inicio");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -165,12 +151,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         escritorio.add(frmfacultad);
         frmfacultad.show();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       FrmFacultad frmfacultad = new FrmFacultad();
-        escritorio.add(frmfacultad);      
-        frmfacultad.show();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,11 +193,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }

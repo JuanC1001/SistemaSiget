@@ -15,9 +15,9 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author MI PC
+ * @author GHISSEL
  */
-public class FrmFacultad extends javax.swing.JPanel {
+public class FrmFacultad extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Facultad
@@ -75,7 +75,7 @@ public class FrmFacultad extends javax.swing.JPanel {
                 txtNombre.setEnabled(false);
                 txtDescripcion .setEnabled(false);
                 txtCodigoSicoa.setEnabled(false);
-                // cargarTabla();
+                 cargarTabla();
             } else {
                 JOptionPane.showMessageDialog(this, "Facultad NO Modificada!!",
                         "Transacción no realizada", JOptionPane.INFORMATION_MESSAGE);
@@ -89,7 +89,7 @@ public class FrmFacultad extends javax.swing.JPanel {
             try {
                 Facultad facultad = new Facultad();
 
-                // Facultad = facultaddao.obtener(Integer.parseInt(txtCodigo.getText()));
+                 facultad = facultaddao.obtener(Integer.parseInt(txtCodigo.getText()));
                 if (facultaddao.eliminar(facultad) > 0) {
                     JOptionPane.showMessageDialog(this, "Facultad eliminada!!",
                             "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
@@ -102,7 +102,7 @@ public class FrmFacultad extends javax.swing.JPanel {
                     txtNombre.setEnabled(false);
                     txtDescripcion.setEnabled(false);
                     txtCodigoSicoa.setEnabled(false);
-                  //  cargarTabla();
+                    cargarTabla();
                 } else {
                     JOptionPane.showMessageDialog(this, "Facultad NO Eliminado!!",
                             "Transacción no realizada", JOptionPane.INFORMATION_MESSAGE);
@@ -487,7 +487,7 @@ public class FrmFacultad extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInsertarActionPerformed
 
      private void cargarTabla() {
-        IFacultad facultadao = new FacultadImp();
+        IFacultad facultaddao = new FacultadImp();
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Codigo");
         modelo.addColumn("Nombre");
@@ -495,7 +495,7 @@ public class FrmFacultad extends javax.swing.JPanel {
         modelo.addColumn("Codigo Sicoa");
         List<Facultad> lstprov = new ArrayList<>();
         try {
-           // lstprov = facultaddao.obtener();
+            lstprov = facultaddao.obtener();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Error de obtencion por aqui", JOptionPane.INFORMATION_MESSAGE);
