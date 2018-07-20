@@ -51,9 +51,9 @@ public class UsuarioImp implements IUsuario {
             while (rst.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setCodigo(rst.getInt(1));
-                usuario.setIdentificacion(rst.getString(4));
-                usuario.setClave(rst.getString(5));
-                usuario.setNombre_Corto(rst.getString(6));
+                usuario.setIdentificacion(rst.getString(2));
+                usuario.setClave(rst.getString(3));
+                usuario.setNombre_Corto(rst.getString(4));
                 lista.add(usuario);
             }
         } catch (Exception e) {

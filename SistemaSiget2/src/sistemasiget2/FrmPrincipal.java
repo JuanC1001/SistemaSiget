@@ -146,11 +146,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         escritorio.add(frmusuario);
         frmusuario.show();     }//GEN-LAST:event_MenuGestionUsuarioActionPerformed
 
-    private void MenuAdministrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAdministrarActionPerformed
-        FrmFacultad frmfacultad = new FrmFacultad();
+    private void MenuAdministrarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        FrmFacultades frmfacultad = new FrmFacultades();
         escritorio.add(frmfacultad);
         frmfacultad.show();
-    }//GEN-LAST:event_MenuAdministrarActionPerformed
+    }                                               
 
     /**
      * @param args the command line arguments
