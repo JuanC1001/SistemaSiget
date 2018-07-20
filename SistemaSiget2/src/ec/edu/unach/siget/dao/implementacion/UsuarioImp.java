@@ -43,7 +43,7 @@ public class UsuarioImp implements IUsuario {
     public List<Usuario> obtener() throws Exception {
         List<Usuario> lista = new ArrayList<>();
 
-        String sql = " SELECT codigo, nombres, apellidos, identificacion, clave, nombre_corto FROM actividades.usuario;";
+        String sql = " SELECT codigo,identificacion, clave, nombre_corto FROM actividades.usuario;";
         conexion con = new conexion();
         con.conectar();
         try {
@@ -51,8 +51,6 @@ public class UsuarioImp implements IUsuario {
             while (rst.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setCodigo(rst.getInt(1));
-                usuario.setNombres(rst.getString(2));
-                usuario.setApellidos(rst.getString(3));
                 usuario.setIdentificacion(rst.getString(4));
                 usuario.setClave(rst.getString(5));
                 usuario.setNombre_Corto(rst.getString(6));

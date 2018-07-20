@@ -1,5 +1,6 @@
 package ec.edu.unach.siget.rnegocio.vistas;
 
+import com.mxrck.autocompleter.TextAutoCompleter;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import ec.edu.unach.siget.dao.contrato.IEscuela;
 import ec.edu.unach.siget.dao.contrato.IFacultad;
@@ -22,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author USUARIO
  */
 public class FrmEscuela extends javax.swing.JInternalFrame {
+    private TextAutoCompleter auto;
 
     /**
      * Creates new form FrmInsertarEscuela
@@ -30,7 +32,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         initComponents();
         txtCodigo.setEnabled(true);
         cmbFacultad.setEnabled(true);
-        txtNombre.setEnabled(false);
+        txtNombre.setEnabled(true);
         txtDescrip.setEnabled(false);
         txtCodigoSicoa.setEnabled(false);
 
@@ -44,6 +46,20 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         btnGuardar1.setVisible(false);
         btnInsertar1.setVisible(false);
 
+        auto = new TextAutoCompleter(txtNombre);
+        IEscuela productodao = new EscuelaImp();
+        List<Escuela> lstProducto = new ArrayList<>();
+        try {
+            lstProducto = productodao.obtener();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        for (int i = 0; i < lstProducto.size(); i++) {
+            auto.addItem(lstProducto.get(i).getNombre());
+        }
+        
+        
         IFacultad facultaddao = new FacultadImp();
         List<Facultad> lstCategoria = new ArrayList<>();
         try {
@@ -108,7 +124,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
 
                 txtCoodigo.setEnabled(true);
                 cmbFacultad.setEnabled(true);
-                txtNombre.setEnabled(false);
+                txtNombre.setEnabled(true);
                 txtDescrip.setEnabled(false);
                 txtCodigoSicoa.setEnabled(false);
                 cargarTabla();
@@ -137,7 +153,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
 
                     txtCoodigo.setEnabled(true);
                     cmbFacultad.setEnabled(true);
-                    txtNombre.setEnabled(false);
+                    txtNombre.setEnabled(true);
                     txtDescrip.setEnabled(false);
                     txtCodigoSicoa.setEnabled(false);
                     cargarTabla();
@@ -431,13 +447,13 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombre)
+                    .addComponent(cmbFacultad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCoodigo)
                     .addComponent(txtDescrip)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtCoodigo, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtCodigoSicoa)
-                    .addComponent(cmbFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigoSicoa))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -691,7 +707,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
 
         txtCoodigo.setEnabled(true);
         cmbFacultad.setEnabled(true);
-        txtNombre.setEnabled(false);
+        txtNombre.setEnabled(true);
         txtDescrip.setEnabled(false);
         txtCodigoSicoa.setEnabled(false);
 
@@ -726,7 +742,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
 
             txtCoodigo.setEnabled(true);
             cmbFacultad.setEnabled(true);
-            txtNombre.setEnabled(false);
+            txtNombre.setEnabled(true);
             txtDescrip.setEnabled(false);
             txtCodigoSicoa.setEnabled(false);
             cargarTabla();

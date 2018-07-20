@@ -154,19 +154,19 @@ public class Usuario {
         this.Codigo_Salt = Codigo_Salt;
     }
 
-//    public int ValidarUsurio(String user, String Clave) {
-//        int band;
+    public int ValidarUsurio(String user, String Clave) {
+        int band;
 //        IUsuario consultaempleado = new UsuarioImp();
 //        usuario2 = consultaempleado.obtener(user);
 //        if (usuario2 != null) {
 //            if (user.equals(usuario2.getCedula()) && Clave.equalsIgnoreCase("1001")) {
-//                band = 1;
+                band = 1;
 //            } else {
 //                band = 0;
 //            }
 //        } else {
 //            band = 0;
 //        }
-//        return band;
-//    }
+        return band;
+    }
 }

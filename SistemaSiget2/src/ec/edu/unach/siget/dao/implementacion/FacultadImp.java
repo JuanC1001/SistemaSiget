@@ -70,7 +70,6 @@ public class FacultadImp implements IFacultad {
             ResultSet rst = con.ejecutarQuery(sql);
             while (rst.next()) {
                 Facultad facultad = new Facultad();
-
                 facultad.setCodigo(rst.getInt(1));
                 facultad.setNombre(rst.getString(2));
                 facultad.setDescripcion(rst.getString(3));

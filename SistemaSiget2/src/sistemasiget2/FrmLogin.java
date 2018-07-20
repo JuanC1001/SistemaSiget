@@ -6,8 +6,11 @@
 package sistemasiget2;
 
 import com.mxrck.autocompleter.TextAutoCompleter;
+import ec.edu.unach.siget.dao.contrato.IEscuela;
 import ec.edu.unach.siget.dao.contrato.IUsuario;
+import ec.edu.unach.siget.dao.implementacion.EscuelaImp;
 import ec.edu.unach.siget.dao.implementacion.UsuarioImp;
+import ec.edu.unach.siget.rnegocio.entidades.Escuela;
 import ec.edu.unach.siget.rnegocio.entidades.Usuario;
 import java.awt.Frame;
 import java.awt.event.KeyAdapter;
@@ -37,6 +40,7 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("../ec/edu/unach/siget/rnegocio/Imagenes/sigetLogo.jpg")).getImage());
 
+
         auto = new TextAutoCompleter(txtUsuarios);
         IUsuario productodao = new UsuarioImp();
         List<Usuario> lstProducto = new ArrayList<>();
@@ -47,9 +51,9 @@ public class FrmLogin extends javax.swing.JFrame {
                     "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         for (int i = 0; i < lstProducto.size(); i++) {
-            auto.addItem(lstProducto.get(i).getIdentificacion());
+            auto.addItem(lstProducto.get(i).getCodigo());
         }
-
+        
         InputMap map = new InputMap();
 
         map.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "pressed");
@@ -195,11 +199,11 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         FrmPrincipal Principal = new FrmPrincipal();
         Usuario miUsuario = new Usuario();
-//        if (miUsuario.ValidarUsurio(txtUsuario.getText(), new String(txtClave.getPassword())) != 1) {
-//            JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña Incorrecta");
-//            txtClave.setText("");
-//            return;
-//        }
+        if (miUsuario.ValidarUsurio(txtUsuarios.getText(), new String(txtClave.getPassword())) != 1) {
+            JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña Incorrecta");
+            txtClave.setText("");
+            return;
+        }
         this.setVisible(false);
         usuario.setIdentificacion(txtUsuarios.getText());
 //        Principal.txtUsuarios.setText(miUsuario.getUsuario2().getNombre()+" "+ miUsuario.getUsuario2().getApellido());
