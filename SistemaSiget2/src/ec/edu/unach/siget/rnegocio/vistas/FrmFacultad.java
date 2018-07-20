@@ -47,7 +47,8 @@ public class FrmFacultad extends javax.swing.JPanel {
             //this.dispose();
         }
      }
-     public void Modificar () throws Exception{
+     public void Modificar (){
+         
           int valor = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea modificar la Facultad?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (valor == JOptionPane.YES_OPTION) {
             Facultad facultad = new Facultad();
@@ -145,7 +146,7 @@ public class FrmFacultad extends javax.swing.JPanel {
         txtDescripcion = new javax.swing.JTextField();
         txtCodigoSicoa = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblListarFacultad = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -358,7 +359,7 @@ public class FrmFacultad extends javax.swing.JPanel {
                 .addContainerGap(63, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblListarFacultad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -369,7 +370,7 @@ public class FrmFacultad extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblListarFacultad);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -430,12 +431,9 @@ public class FrmFacultad extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
-        try {
-           //modificar();
-        } catch (Exception ex) {
-         //   Logger.getLogger(FrmFacultad.class.getName()).log(Level.SEVERE, null, ex);
-        }
+ 
+           Modificar();
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -494,7 +492,6 @@ public class FrmFacultad extends javax.swing.JPanel {
         IFacultad facultadao = new FacultadImp();
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Codigo");
-        modelo.addColumn("Codigo Facultad");
         modelo.addColumn("Nombre");
         modelo.addColumn("Descripción");
         modelo.addColumn("Codigo Sicoa");
@@ -508,7 +505,7 @@ public class FrmFacultad extends javax.swing.JPanel {
         for (Facultad prov : lstprov) {
             modelo.addRow(new Object[]{prov.getCodigo(),  prov.getNombre(), prov.getDescripcion(), prov.getCodigo_Sicoa()});
         }
-       // tblListarFacultad.setModel(modelo);
+        tblListarFacultad.setModel(modelo);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -529,7 +526,7 @@ public class FrmFacultad extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblListarFacultad;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCodigoSicoa;
     private javax.swing.JTextField txtDescripcion;
