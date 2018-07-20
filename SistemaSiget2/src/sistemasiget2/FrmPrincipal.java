@@ -147,7 +147,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         frmusuario.show();     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        FrmFacultad frmfacultad = new FrmFacultad();
+        FrmFacultades frmfacultad = new FrmFacultades();
         escritorio.add(frmfacultad);
         frmfacultad.show();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
