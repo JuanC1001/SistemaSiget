@@ -5,13 +5,11 @@
  */
 package ec.edu.unach.siget.rnegocio.vistas;
 
-import com.sun.istack.internal.logging.Logger;
 import ec.edu.unach.siget.dao.contrato.IFacultad;
 import ec.edu.unach.siget.dao.implementacion.FacultadImp;
 import ec.edu.unach.siget.rnegocio.entidades.Facultad;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
