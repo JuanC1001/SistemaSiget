@@ -24,6 +24,18 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
      */
     public FrmFacultades() {
         initComponents();
+        btnInsertar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnNuevo.setEnabled(true);
+        btnBuscar.setEnabled(true);
+        btnModificar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        btnCancelar.setVisible(false);
+        btnGuardar.setVisible(false);
+        txtCodigo.setEnabled(true);
+        txtCodigo.setText(null);
+        
+        
     }
 
     /**
@@ -63,7 +75,7 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
-        jLabel1.setText("Facultad");
+        jLabel1.setText("Facultades");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -71,7 +83,7 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(185, 185, 185)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -467,20 +479,55 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        btnInsertar.setEnabled(false);
+       btnInsertar.setEnabled(false);
         btnEliminar.setEnabled(false);
         btnNuevo.setEnabled(true);
         btnBuscar.setEnabled(true);
-        btnModificar.setEnabled(true);
+        btnModificar.setEnabled(false);
         btnCancelar.setEnabled(true);
         btnCancelar.setVisible(false);
         btnGuardar.setVisible(false);
-        txtCodigo.setEnabled(true);
-        txtCodigo.setText(null);
+        btnInsertar.setVisible(false);
+
+        
+        txtNombre.setText(null);
+        txtDescripcion.setText(null);
+        txtCodigoSicoa.setText(null);
+
+         txtNombre.setEnabled(true);
+        txtDescripcion.setEnabled(false);
+        txtCodigoSicoa.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        // TODO add your handling code here:
+        Facultad facultad = new Facultad();
+        IFacultad escueladao = new FacultadImp();
+        facultad.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
+
+        facultad.setNombre(this.txtNombre.getText());
+        facultad.setDescripcion(this.txtDescripcion.getText());
+        facultad.setCodigo_Sicoa(Integer.parseInt(this.txtCodigoSicoa.getText()));
+        if (escueladao.insertar(facultad) > 0) {
+            JOptionPane.showMessageDialog(this, "Escuela insertado!!",
+                    "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
+            btnInsertar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+            btnNuevo.setEnabled(true);
+            btnBuscar.setEnabled(true);
+            btnModificar.setEnabled(false);
+            btnCancelar.setEnabled(true);
+            btnCancelar.setVisible(false);
+            btnGuardar.setVisible(false);
+            btnInsertar.setVisible(false);
+            txtNombre.setText(null);
+            txtCodigoSicoa.setText(null);
+            txtNombre.setEnabled(true);
+            txtCodigoSicoa.setEnabled(false);
+            cargarTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "Facultad NO insertado!!",
+                    "Transacción no realizada", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed

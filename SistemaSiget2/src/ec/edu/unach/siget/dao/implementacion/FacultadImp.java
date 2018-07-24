@@ -9,7 +9,6 @@ import ec.edu.unach.siget.accesodatos.conexion;
 import ec.edu.unach.siget.accesodatos.parametro;
 import ec.edu.unach.siget.dao.contrato.IFacultad;
 import ec.edu.unach.siget.rnegocio.entidades.Facultad;
-import ec.edu.unach.siget.rnegocio.entidades.Facultad;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,21 +21,62 @@ public class FacultadImp implements IFacultad {
 
     @Override
     public int insertar(Facultad facultad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int numFilasAfectadas = 0;
+        String sql = "INSERT INTO actividades.facultad codigo, nombre, descripcion, codigo_sicoa)" +
+        " VALUES (?, ?, ?, ?);";
+        List<parametro> lstpar = new ArrayList<>();
+        lstpar.add(new parametro(1, facultad.getCodigo()));
+        lstpar.add(new parametro(2, facultad.getNombre()));
+        lstpar.add(new parametro(3, facultad.getDescripcion()));
+        lstpar.add(new parametro(4, facultad.getCodigo_Sicoa()));
+
+        conexion con = new conexion();
+
+        try {
+            con.conectar();
+            numFilasAfectadas = con.ejecutaComando(sql, lstpar);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.desconectar();
+        }
+        return numFilasAfectadas;
     }
 
     @Override
     public int modificar(Facultad facultad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     int numFilasAfectadas = 0;
+        conexion con = new conexion();
+        String sql = "UPDATE actividades.facultad" +
+"   SET codigo=?, nombre=?, descripcion=?, codigo_sicoa=?" +
+" WHERE Codigo=?;";
+        List<parametro> lstPar = new ArrayList<>();
+        lstPar.add(new parametro(1, facultad.getCodigo()));
+        lstPar.add(new parametro(2, facultad.getNombre()));
+        lstPar.add(new parametro(3, facultad.getDescripcion()));
+        lstPar.add(new parametro(4, facultad.getCodigo_Sicoa()));
+
+        numFilasAfectadas = con.ejecutaComando(sql, lstPar);
+        con.desconectar();
+
+        return numFilasAfectadas;    
     }
 
     @Override
     public int eliminar(Facultad facultad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    int numFilasAfectadas = 0;
+        conexion con = new conexion();
+        String sql = "DELETE FROM facultad"
+                + "  where codigo = ?";
+        List<parametro> lstPar = new ArrayList<>();
+        lstPar.add(new parametro(1, facultad.getCodigo()));
+        numFilasAfectadas = con.ejecutaComando(sql, lstPar);
+        con.desconectar();
+        return numFilasAfectadas; }
 
-    @Override
-    public Facultad obtener(int id) throws Exception {
+      @Override
+  
+      public Facultad obtener(int id) throws Exception {
         Facultad facultad = null;
         String sql = "SELECT *FROM actividades.fn_buscar_facultades(?);";
         conexion con = new conexion();
