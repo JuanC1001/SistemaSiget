@@ -38,7 +38,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     public FrmLogin() {
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("../ec/edu/unach/siget/rnegocio/Imagenes/sigetLogo.jpg")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("../ec/edu/unach/siget/rnegocio/Imagenes/LogoUnach.jpg")).getImage());
 
 
         auto = new TextAutoCompleter(txtUsuarios);

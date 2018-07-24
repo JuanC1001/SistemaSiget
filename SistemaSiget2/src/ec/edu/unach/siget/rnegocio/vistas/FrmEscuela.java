@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author USUARIO
  */
 public class FrmEscuela extends javax.swing.JInternalFrame {
+
     private TextAutoCompleter auto;
 
     /**
@@ -58,8 +59,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         for (int i = 0; i < lstProducto.size(); i++) {
             auto.addItem(lstProducto.get(i).getNombre());
         }
-        
-        
+
         IFacultad facultaddao = new FacultadImp();
         List<Facultad> lstCategoria = new ArrayList<>();
         try {
@@ -69,7 +69,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                     "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         for (int i = 0; i < lstCategoria.size(); i++) {
-            cmbFacultad.addItem(lstCategoria.get(i).getNombre());
+            cmbFacultad.addItem(lstCategoria.get(i).toString());
         }
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -347,7 +347,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Categoria");
+        setTitle("Escuelas");
         setToolTipText("");
         setRequestFocusEnabled(false);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -718,11 +718,19 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
 
         Escuela escuela = new Escuela();
         IEscuela escueladao = new EscuelaImp();
-        escuela.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
+        IFacultad facultaddao = new FacultadImp();
+        escuela.setCodigo(Integer.parseInt(this.txtCoodigo.getText()));
 
+        try {
+            escuela.setFacultad(facultaddao.obtener(((Facultad) cmbFacultad.getSelectedItem()).getCodigo()));
+        } catch (Exception ex6) {
+            JOptionPane.showMessageDialog(this, ex6.getMessage(),
+                    "Error en obtener la facultad", JOptionPane.INFORMATION_MESSAGE);
+        }
         escuela.setNombre(this.txtNombre.getText());
         escuela.setDescripcion(this.txtDescrip.getText());
         escuela.setCodigo_Sicoa(Integer.parseInt(this.txtCodigoSicoa.getText()));
+
         if (escueladao.insertar(escuela) > 0) {
             JOptionPane.showMessageDialog(this, "Escuela insertado!!",
                     "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);

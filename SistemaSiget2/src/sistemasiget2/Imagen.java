@@ -27,7 +27,7 @@ public class Imagen implements Border{
 
     public Imagen() {
         try {
-            URL imagePath = new URL(getClass().getResource("../ec/edu/unach/siget/rnegocio/Imagenes/Fondo.jpg").toString());
+            URL imagePath = new URL(getClass().getResource("../ec/edu/unach/siget/rnegocio/Imagenes/Fondo2.jpg").toString());
             image = ImageIO.read(imagePath);
         } catch (IOException ex) {
             Logger.getLogger(Imagen.class.getName()).log(Level.SEVERE, null, ex);

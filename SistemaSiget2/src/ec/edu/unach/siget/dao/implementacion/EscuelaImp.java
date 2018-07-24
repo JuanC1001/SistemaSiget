@@ -23,7 +23,7 @@ public class EscuelaImp implements IEscuela {
     @Override
     public int insertar(Escuela escuela) {
         int numFilasAfectadas = 0;
-        String sql = "SELECT * FROM actividades.fn_insertar_escuelas(?,?,?,?,?)";
+        String sql = "SELECT *FROM actividades.fn_insertar_escuelas(?,?,?,?,?)";
         List<parametro> lstpar = new ArrayList<>();
         lstpar.add(new parametro(1, escuela.getCodigo()));
         lstpar.add(new parametro(2, escuela.getFacultad().getCodigo()));

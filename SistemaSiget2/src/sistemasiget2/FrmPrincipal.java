@@ -7,6 +7,7 @@ package sistemasiget2;
 
 import ec.edu.unach.siget.rnegocio.vistas.*;
 import ec.edu.unach.siget.rnegocio.vistas.FrmUsuario;
+import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 
 /**
@@ -20,7 +21,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
-
+        setIconImage(new ImageIcon(getClass().getResource("../ec/edu/unach/siget/rnegocio/Imagenes/LogoUnach.jpg")).getImage());
         escritorio.setBorder(new Imagen());
         this.setExtendedState(FrmPrincipal.MAXIMIZED_BOTH);
     }
