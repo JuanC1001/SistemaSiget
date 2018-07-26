@@ -8,6 +8,7 @@ import ec.edu.unach.siget.dao.implementacion.EscuelaImp;
 import ec.edu.unach.siget.dao.implementacion.FacultadImp;
 import ec.edu.unach.siget.rnegocio.entidades.Escuela;
 import ec.edu.unach.siget.rnegocio.entidades.Facultad;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         txtNombre.setEnabled(true);
         txtDescrip.setEnabled(false);
         txtCodigoSicoa.setEnabled(false);
-
+        
         btnInsertar1.setEnabled(false);
         btnEliminar1.setEnabled(false);
         btnNuevo1.setEnabled(true);
@@ -69,7 +70,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                     "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         for (int i = 0; i < lstCategoria.size(); i++) {
-            cmbFacultad.addItem(lstCategoria.get(i).toString());
+            cmbFacultad.addItem(lstCategoria.get(i));
         }
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -81,7 +82,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             }
 
         });
-        cargarTabla();
+//        cargarTabla();
     }
 
     public void cerrar() {
@@ -347,8 +348,10 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setResizable(true);
         setTitle("Escuelas");
         setToolTipText("");
+        setPreferredSize(new java.awt.Dimension(1000, 600));
         setRequestFocusEnabled(false);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -434,6 +437,11 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         jLabel6.setText("Codigo Sicoa");
 
         cmbFacultad.setEditable(true);
+        cmbFacultad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFacultadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -461,26 +469,25 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6))
+                    .addComponent(jLabel9)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtCoodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
                         .addGap(13, 13, 13)
-                        .addComponent(txtCodigoSicoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCodigoSicoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -785,7 +792,11 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         try {
             escuela = escueladao.obtener(Integer.parseInt(txtCodigo.getText()));
             if (escuela != null) {
-                txtCoodigo.setText(escuela.getNombre());
+                txtCoodigo.setText(String.valueOf(escuela.getCodigo()));
+                txtNombre.setText(String.valueOf(escuela.getCodigo()));
+                txtDescrip.setText(String.valueOf(escuela.getCodigo()));
+                txtCodigoSicoa.setText(String.valueOf(escuela.getCodigo()));
+                cmbFacultad.setSelectedItem(escuela.getFacultad().toString());
                 btnEliminar1.setEnabled(true);
                 btnModificar1.setEnabled(true);
                 txtCodigo.setEnabled(false);
@@ -845,6 +856,10 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
     private void txtCodigoSicoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoSicoaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoSicoaActionPerformed
+
+    private void cmbFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFacultadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbFacultadActionPerformed
 
     private void cargarTabla() {
         IEscuela escueladao = new EscuelaImp();

@@ -5,9 +5,15 @@
  */
 package ec.edu.unach.siget.rnegocio.vistas;
 
+import com.mxrck.autocompleter.TextAutoCompleter;
+import ec.edu.unach.siget.dao.contrato.IEscuela;
 import ec.edu.unach.siget.dao.contrato.IFacultad;
+import ec.edu.unach.siget.dao.implementacion.EscuelaImp;
 import ec.edu.unach.siget.dao.implementacion.FacultadImp;
+import ec.edu.unach.siget.rnegocio.entidades.Escuela;
 import ec.edu.unach.siget.rnegocio.entidades.Facultad;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -22,6 +28,8 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
     /**
      * Creates new form FrmFacultades
      */
+    private TextAutoCompleter auto;
+
     public FrmFacultades() {
         initComponents();
         btnInsertar.setEnabled(false);
@@ -29,13 +37,32 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
         btnNuevo.setEnabled(true);
         btnBuscar.setEnabled(true);
         btnModificar.setEnabled(false);
-        btnCancelar.setEnabled(false);
+        btnCancelar.setEnabled(true);
         btnCancelar.setVisible(false);
         btnGuardar.setVisible(false);
-        txtCodigo.setEnabled(true);
-        txtCodigo.setText(null);
-        
-        
+        btnInsertar.setVisible(false);
+
+        txtNombre.setText(null);
+        txtDescripcion.setText(null);
+        txtCodigoSicoa.setText(null);
+
+        txtNombre.setEnabled(true);
+        txtDescripcion.setEnabled(false);
+        txtCodigoSicoa.setEnabled(false);
+
+        auto = new TextAutoCompleter(txtNombre);
+        IFacultad productodao = new FacultadImp();
+        List<Facultad> lstProducto = new ArrayList<>();
+        try {
+            lstProducto = productodao.obtener();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        for (int i = 0; i < lstProducto.size(); i++) {
+            auto.addItem(lstProducto.get(i).getNombre());
+        }
+        cargarTabla();
     }
 
     /**
@@ -69,6 +96,12 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
         txtNombre = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         txtCodigoSicoa = new javax.swing.JTextField();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setPreferredSize(new java.awt.Dimension(1000, 600));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -105,6 +138,9 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblListarFacultad.setEnabled(false);
+        tblListarFacultad.setRowSelectionAllowed(false);
+        tblListarFacultad.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblListarFacultad);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -188,23 +224,27 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnListar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnListar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -223,8 +263,9 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -255,22 +296,17 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCodigoSicoa, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCodigo)
+                    .addComponent(txtCodigoSicoa))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +327,7 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(txtCodigoSicoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -302,12 +338,9 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -320,10 +353,9 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -339,34 +371,45 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
         if (valor == JOptionPane.YES_OPTION) {
             Facultad facultad = new Facultad();
             IFacultad facultaddao = new FacultadImp();
+
             facultad.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
+
             facultad.setNombre(this.txtNombre.getText());
             facultad.setDescripcion(this.txtDescripcion.getText());
             facultad.setCodigo_Sicoa(Integer.parseInt(this.txtCodigoSicoa.getText()));
-            if (facultaddao.modificar(facultad) > 0) {
-                JOptionPane.showMessageDialog(this, "Facultad Modificada!!",
-                        "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
+            if (facultad.getCodigo_Sicoa() > 0) {
 
-                btnInsertar.setEnabled(false);
-                btnNuevo.setEnabled(true);
-                btnEliminar.setEnabled(true);
-                btnBuscar.setEnabled(true);
-                btnModificar.setEnabled(true);
-                btnCancelar.setEnabled(false);
-                btnCancelar.setVisible(false);
-                btnInsertar.setVisible(false);
-                btnGuardar.setVisible(false);
-                btnGuardar.setEnabled(false);
-                txtNombre.setText(null);
-                txtCodigoSicoa.setText(null);
+                if (facultaddao.modificar(facultad) > 0) {
+                    JOptionPane.showMessageDialog(this, "Facultad Modificada!!",
+                            "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
 
-                txtNombre.setEnabled(false);
-                txtDescripcion.setEnabled(false);
-                txtCodigoSicoa.setEnabled(false);
-                cargarTabla();
+                    btnInsertar.setEnabled(false);
+                    btnEliminar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnBuscar.setEnabled(true);
+                    btnModificar.setEnabled(false);
+                    btnCancelar.setEnabled(true);
+                    btnCancelar.setVisible(false);
+                    btnGuardar.setVisible(false);
+                    btnInsertar.setVisible(false);
+
+                    txtCodigo.setText(null);
+                    txtNombre.setText(null);
+                    txtDescripcion.setText(null);
+                    txtCodigoSicoa.setText(null);
+                    txtNombre.setEnabled(true);
+                    txtCodigo.setEnabled(true);
+                    txtNombre.setEnabled(true);
+                    txtDescripcion.setEnabled(false);
+                    txtCodigoSicoa.setEnabled(false);
+                    cargarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Facultad NO Modificada!!",
+                            "Transacción no realizada", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Facultad NO Modificada!!",
-                        "Transacción no realizada", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Codigo de no admitido",
+                        "El coigo ingresado no es valido: debe ser enteros positivos", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
@@ -382,13 +425,23 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
                 if (facultaddao.eliminar(facultad) > 0) {
                     JOptionPane.showMessageDialog(this, "Facultad eliminada!!",
                             "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
+                    btnInsertar.setEnabled(false);
+                    btnEliminar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnBuscar.setEnabled(true);
+                    btnModificar.setEnabled(false);
+                    btnCancelar.setEnabled(true);
+                    btnCancelar.setVisible(false);
+                    btnGuardar.setVisible(false);
+                    btnInsertar.setVisible(false);
+
                     txtCodigo.setText(null);
                     txtNombre.setText(null);
                     txtDescripcion.setText(null);
                     txtCodigoSicoa.setText(null);
 
                     txtCodigo.setEnabled(true);
-                    txtNombre.setEnabled(false);
+                    txtNombre.setEnabled(true);
                     txtDescripcion.setEnabled(false);
                     txtCodigoSicoa.setEnabled(false);
                     cargarTabla();
@@ -433,17 +486,29 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
         btnInsertar.setVisible(true);
         btnCancelar.setEnabled(true);
 
+        txtCodigo.setEnabled(true);
         txtNombre.setEnabled(true);
         txtDescripcion.setEnabled(true);
         txtCodigoSicoa.setEnabled(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        btnInsertar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnNuevo.setEnabled(false);
+        btnBuscar.setEnabled(false);
+        btnModificar.setEnabled(false);
+        btnCancelar.setEnabled(true);
+        btnCancelar.setVisible(true);
+        btnGuardar.setVisible(true);
+        btnInsertar.setVisible(false);
+        txtCodigo.setEnabled(false);
+        txtNombre.setEnabled(true);
+        txtDescripcion.setEnabled(true);
+        txtCodigoSicoa.setEnabled(true);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
         eliminar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -454,12 +519,22 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
         try {
             facultad = facultaddao.obtener(Integer.parseInt(txtCodigo.getText()));
             if (facultad != null) {
-                txtCodigo.setText(facultad.getNombre());
+                txtCodigo.setText(String.valueOf(facultad.getCodigo()));
+                txtNombre.setText(facultad.getNombre());
+                txtDescripcion.setText(facultad.getDescripcion());
+                txtCodigoSicoa.setText(String.valueOf(facultad.getCodigo_Sicoa()));
+
                 btnEliminar.setEnabled(true);
                 btnModificar.setEnabled(true);
                 btnCancelar.setEnabled(true);
                 btnCancelar.setVisible(true);
                 btnBuscar.setEnabled(false);
+                btnNuevo.setEnabled(false);
+                txtCodigo.setEnabled(false);
+                txtNombre.setEnabled(false);
+                txtDescripcion.setEnabled(false);
+                txtCodigoSicoa.setEnabled(false);
+
             } else {
                 txtCodigo.setText(null);
                 JOptionPane.showMessageDialog(this, "No existe ninguna facultad con ese codigo",
@@ -479,7 +554,7 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-       btnInsertar.setEnabled(false);
+        btnInsertar.setEnabled(false);
         btnEliminar.setEnabled(false);
         btnNuevo.setEnabled(true);
         btnBuscar.setEnabled(true);
@@ -489,44 +564,65 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
         btnGuardar.setVisible(false);
         btnInsertar.setVisible(false);
 
-        
         txtNombre.setText(null);
         txtDescripcion.setText(null);
         txtCodigoSicoa.setText(null);
 
-         txtNombre.setEnabled(true);
+        txtCodigo.setEnabled(true);
+        txtNombre.setEnabled(true);
         txtDescripcion.setEnabled(false);
         txtCodigoSicoa.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    public static boolean isNumeric(String str) {
+        NumberFormat formatter = NumberFormat.getInstance();
+        ParsePosition pos = new ParsePosition(0);
+        formatter.parse(str, pos);
+        return str.length() == pos.getIndex();
+    }
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         Facultad facultad = new Facultad();
         IFacultad escueladao = new FacultadImp();
-        facultad.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
 
-        facultad.setNombre(this.txtNombre.getText());
-        facultad.setDescripcion(this.txtDescripcion.getText());
-        facultad.setCodigo_Sicoa(Integer.parseInt(this.txtCodigoSicoa.getText()));
-        if (escueladao.insertar(facultad) > 0) {
-            JOptionPane.showMessageDialog(this, "Escuela insertado!!",
-                    "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
-            btnInsertar.setEnabled(false);
-            btnEliminar.setEnabled(false);
-            btnNuevo.setEnabled(true);
-            btnBuscar.setEnabled(true);
-            btnModificar.setEnabled(false);
-            btnCancelar.setEnabled(true);
-            btnCancelar.setVisible(false);
-            btnGuardar.setVisible(false);
-            btnInsertar.setVisible(false);
-            txtNombre.setText(null);
-            txtCodigoSicoa.setText(null);
-            txtNombre.setEnabled(true);
-            txtCodigoSicoa.setEnabled(false);
-            cargarTabla();
+        if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtCodigoSicoa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Existe Algun Campo Vacío", "Error!", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Facultad NO insertado!!",
-                    "Transacción no realizada", JOptionPane.INFORMATION_MESSAGE);
+            if (isNumeric(this.txtCodigo.getText()) && isNumeric(this.txtCodigoSicoa.getText())) {
+
+                facultad.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
+                facultad.setNombre(this.txtNombre.getText());
+                facultad.setDescripcion(this.txtDescripcion.getText());
+                facultad.setCodigo_Sicoa(Integer.parseInt(this.txtCodigoSicoa.getText()));
+                if (facultad.getCodigo() > 0) {
+                    if (escueladao.insertar(facultad) > 0) {
+                        JOptionPane.showMessageDialog(this, "Escuela insertado!!",
+                                "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
+                        btnInsertar.setEnabled(false);
+                        btnEliminar.setEnabled(false);
+                        btnNuevo.setEnabled(true);
+                        btnBuscar.setEnabled(true);
+                        btnModificar.setEnabled(false);
+                        btnCancelar.setEnabled(true);
+                        btnCancelar.setVisible(false);
+                        btnGuardar.setVisible(false);
+                        btnInsertar.setVisible(false);
+                        txtNombre.setText(null);
+                        txtCodigoSicoa.setText(null);
+                        txtNombre.setEnabled(true);
+                        txtCodigoSicoa.setEnabled(false);
+                        cargarTabla();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "FACULTAD NO INSERTADA! \n Revise bien los datos, \n Puede exista un codigo con el mismo valor ingresado",
+                                "Transacción no realizada", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "El coigo ingresado no es valido: debe ser enteros positivos... intente con otro codigo",
+                            "Codigo de no admitido", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El CODIGO o CODIGO SICOA ingresado no es valido:\n Debe ser enteros positivos... intente con otro codigo",
+                        "Codigo de no admitido", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         }
     }//GEN-LAST:event_btnInsertarActionPerformed
 

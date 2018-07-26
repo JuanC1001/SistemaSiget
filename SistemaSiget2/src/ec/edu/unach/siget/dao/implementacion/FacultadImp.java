@@ -22,8 +22,7 @@ public class FacultadImp implements IFacultad {
     @Override
     public int insertar(Facultad facultad) {
         int numFilasAfectadas = 0;
-        String sql = "INSERT INTO actividades.facultad codigo, nombre, descripcion, codigo_sicoa)" +
-        " VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO actividades.facultad (codigo, nombre, descripcion, codigo_sicoa) VALUES (?, ?, ?, ?);";
         List<parametro> lstpar = new ArrayList<>();
         lstpar.add(new parametro(1, facultad.getCodigo()));
         lstpar.add(new parametro(2, facultad.getNombre()));
@@ -45,38 +44,37 @@ public class FacultadImp implements IFacultad {
 
     @Override
     public int modificar(Facultad facultad) {
-     int numFilasAfectadas = 0;
+        int numFilasAfectadas = 0;
         conexion con = new conexion();
-        String sql = "UPDATE actividades.facultad" +
-"   SET codigo=?, nombre=?, descripcion=?, codigo_sicoa=?" +
-" WHERE Codigo=?;";
+        String sql = "UPDATE actividades.facultad SET nombre=?, descripcion=?, codigo_sicoa=? WHERE Codigo=?;";
         List<parametro> lstPar = new ArrayList<>();
-        lstPar.add(new parametro(1, facultad.getCodigo()));
-        lstPar.add(new parametro(2, facultad.getNombre()));
-        lstPar.add(new parametro(3, facultad.getDescripcion()));
-        lstPar.add(new parametro(4, facultad.getCodigo_Sicoa()));
+        lstPar.add(new parametro(1, facultad.getNombre()));
+        lstPar.add(new parametro(2, facultad.getDescripcion()));
+        lstPar.add(new parametro(3, facultad.getCodigo_Sicoa()));
+        lstPar.add(new parametro(4, facultad.getCodigo()));
 
         numFilasAfectadas = con.ejecutaComando(sql, lstPar);
         con.desconectar();
 
-        return numFilasAfectadas;    
+        return numFilasAfectadas;
     }
 
     @Override
     public int eliminar(Facultad facultad) {
-    int numFilasAfectadas = 0;
+        int numFilasAfectadas = 0;
         conexion con = new conexion();
-        String sql = "DELETE FROM facultad"
+        String sql = "DELETE FROM actividades.facultad"
                 + "  where codigo = ?";
         List<parametro> lstPar = new ArrayList<>();
         lstPar.add(new parametro(1, facultad.getCodigo()));
         numFilasAfectadas = con.ejecutaComando(sql, lstPar);
         con.desconectar();
-        return numFilasAfectadas; }
+        return numFilasAfectadas;
+    }
 
-      @Override
-  
-      public Facultad obtener(int id) throws Exception {
+    @Override
+
+    public Facultad obtener(int id) throws Exception {
         Facultad facultad = null;
         String sql = "SELECT *FROM actividades.fn_buscar_facultades(?);";
         conexion con = new conexion();
