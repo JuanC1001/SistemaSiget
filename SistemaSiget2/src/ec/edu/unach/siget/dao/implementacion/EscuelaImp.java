@@ -48,8 +48,7 @@ public class EscuelaImp implements IEscuela {
     public int eliminar(Escuela escuela) {
         int numFilasAfectadas = 0;
         conexion con = new conexion();
-        String sql = "DELETE FROM escuela"
-                + "  where codigo = ?";
+        String sql = "DELETE FROM actividades.escuela where codigo = ?";
         List<parametro> lstPar = new ArrayList<>();
         lstPar.add(new parametro(1, escuela.getCodigo()));
         numFilasAfectadas = con.ejecutaComando(sql, lstPar);

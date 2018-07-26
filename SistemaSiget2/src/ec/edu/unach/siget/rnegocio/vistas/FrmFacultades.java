@@ -564,6 +564,7 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
         btnGuardar.setVisible(false);
         btnInsertar.setVisible(false);
 
+        txtCodigo.setText(null);
         txtNombre.setText(null);
         txtDescripcion.setText(null);
         txtCodigoSicoa.setText(null);
@@ -605,9 +606,15 @@ public class FrmFacultades extends javax.swing.JInternalFrame {
                         btnCancelar.setVisible(false);
                         btnGuardar.setVisible(false);
                         btnInsertar.setVisible(false);
+
+                        txtCodigo.setText(null);
                         txtNombre.setText(null);
+                        txtDescripcion.setText(null);
                         txtCodigoSicoa.setText(null);
+
+                        txtCodigo.setEnabled(true);
                         txtNombre.setEnabled(true);
+                        txtDescripcion.setEnabled(false);
                         txtCodigoSicoa.setEnabled(false);
                         cargarTabla();
                     } else {
