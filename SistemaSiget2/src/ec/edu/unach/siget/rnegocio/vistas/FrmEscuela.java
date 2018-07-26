@@ -37,7 +37,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         txtNombre.setEnabled(true);
         txtDescrip.setEnabled(false);
         txtCodigoSicoa.setEnabled(false);
-        
+
         btnInsertar1.setEnabled(false);
         btnEliminar1.setEnabled(false);
         btnNuevo1.setEnabled(true);
@@ -98,7 +98,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             Escuela escuela = new Escuela();
             IEscuela escueladao = new EscuelaImp();
             IFacultad facultaddao = new FacultadImp();
-            
+
             escuela.setCodigo(Integer.parseInt(this.txtCoodigo.getText()));
             escuela.setFacultad(facultaddao.obtener(((Facultad) cmbFacultad.getSelectedItem()).getCodigo()));
             escuela.setNombre(this.txtNombre.getText());
@@ -798,12 +798,19 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                 txtDescrip.setText(String.valueOf(escuela.getCodigo()));
                 txtCodigoSicoa.setText(String.valueOf(escuela.getCodigo()));
                 cmbFacultad.setSelectedItem(escuela.getFacultad().toString());
+
                 btnEliminar1.setEnabled(true);
                 btnModificar1.setEnabled(true);
-                txtCodigo.setEnabled(false);
                 btnCancelar1.setEnabled(true);
                 btnCancelar1.setVisible(true);
                 btnBuscar1.setEnabled(false);
+
+                txtCoodigo.setEnabled(false);
+                cmbFacultad.setEnabled(false);
+                txtNombre.setEnabled(false);
+                txtDescrip.setEnabled(false);
+                txtCodigoSicoa.setEnabled(false);
+
             } else {
                 txtCoodigo.setText(null);
                 JOptionPane.showMessageDialog(this, "No existe ninguna escuela con ese codigo",
