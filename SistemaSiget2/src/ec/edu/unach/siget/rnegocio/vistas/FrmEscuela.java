@@ -98,7 +98,8 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             Escuela escuela = new Escuela();
             IEscuela escueladao = new EscuelaImp();
             IFacultad facultaddao = new FacultadImp();
-            escuela.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
+            
+            escuela.setCodigo(Integer.parseInt(this.txtCoodigo.getText()));
             escuela.setFacultad(facultaddao.obtener(((Facultad) cmbFacultad.getSelectedItem()).getCodigo()));
             escuela.setNombre(this.txtNombre.getText());
             escuela.setDescripcion(this.txtDescrip.getText());
@@ -143,7 +144,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             try {
                 Escuela escuela = new Escuela();
 
-                escuela = escueladao.obtener(Integer.parseInt(txtCodigo.getText()));
+                escuela = escueladao.obtener(Integer.parseInt(txtCoodigo.getText()));
                 if (escueladao.eliminar(escuela) > 0) {
                     JOptionPane.showMessageDialog(this, "Escuela eliminada!!",
                             "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
@@ -582,21 +583,21 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addComponent(btnListar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnNuevo1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnModificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnNuevo1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnModificar1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminar1)
+                .addGap(5, 5, 5)
                 .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnInsertar1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         tblListarEscuela.setModel(new javax.swing.table.DefaultTableModel(
@@ -790,7 +791,7 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         IEscuela escueladao = new EscuelaImp();
         Escuela escuela = new Escuela();
         try {
-            escuela = escueladao.obtener(Integer.parseInt(txtCodigo.getText()));
+            escuela = escueladao.obtener(Integer.parseInt(txtCoodigo.getText()));
             if (escuela != null) {
                 txtCoodigo.setText(String.valueOf(escuela.getCodigo()));
                 txtNombre.setText(String.valueOf(escuela.getCodigo()));

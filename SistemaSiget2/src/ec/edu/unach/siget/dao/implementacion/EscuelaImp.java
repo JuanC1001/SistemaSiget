@@ -78,7 +78,7 @@ public class EscuelaImp implements IEscuela {
     @Override
     public Escuela obtener(int id) throws Exception {
         Escuela escuela = null;
-        String sql = "SELECT codigo, nombre";
+        String sql = "SELECT *from actividades.fn_buscar_escuelas(?);";
         conexion con = new conexion();
         con.conectar();
         try {
