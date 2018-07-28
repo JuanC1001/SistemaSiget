@@ -60,14 +60,13 @@ public class EscuelaImp implements IEscuela {
     public int modificar(Escuela escuela) {
         int numFilasAfectadas = 0;
         conexion con = new conexion();
-        String sql = "SELECT actividades.fn_actualizar_escuelas(?,?,?,?,?);";
+        String sql = "UPDATE actividades.escuela SET codigo_facultad=?, nombre=?, descripcion=?, codigo_sicoa=? WHERE codigo=?";
         List<parametro> lstPar = new ArrayList<>();
-        lstPar.add(new parametro(1, escuela.getCodigo()));
-        lstPar.add(new parametro(2, escuela.getFacultad().getCodigo()));
-        lstPar.add(new parametro(3, escuela.getNombre()));
-        lstPar.add(new parametro(4, escuela.getDescripcion()));
-        lstPar.add(new parametro(5, escuela.getCodigo_Sicoa()));
-
+        lstPar.add(new parametro(1, escuela.getFacultad().getCodigo()));
+        lstPar.add(new parametro(2, escuela.getNombre()));
+        lstPar.add(new parametro(3, escuela.getDescripcion()));
+        lstPar.add(new parametro(4, escuela.getCodigo_Sicoa()));
+        lstPar.add(new parametro(5, escuela.getCodigo()));
         numFilasAfectadas = con.ejecutaComando(sql, lstPar);
         con.desconectar();
 
@@ -114,7 +113,7 @@ public class EscuelaImp implements IEscuela {
             while (rst.next()) {
                 Escuela escuela = new Escuela();
                 IFacultad facultaddao = new FacultadImp();
-                
+
                 escuela.setCodigo(rst.getInt(1));
                 escuela.setFacultad(facultaddao.obtener(rst.getInt(2)));
                 escuela.setNombre(rst.getString(3));

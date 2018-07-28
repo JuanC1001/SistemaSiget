@@ -8,6 +8,7 @@ import ec.edu.unach.siget.dao.implementacion.EscuelaImp;
 import ec.edu.unach.siget.dao.implementacion.FacultadImp;
 import ec.edu.unach.siget.rnegocio.entidades.Escuela;
 import ec.edu.unach.siget.rnegocio.entidades.Facultad;
+import static ec.edu.unach.siget.rnegocio.vistas.FrmFacultades.isNumeric;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -110,15 +111,15 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                         "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
 
                 btnInsertar1.setEnabled(false);
+                btnEliminar1.setEnabled(false);
                 btnNuevo1.setEnabled(true);
-                btnEliminar1.setEnabled(true);
                 btnBuscar1.setEnabled(true);
-                btnModificar1.setEnabled(true);
-                btnCancelar1.setEnabled(false);
+                btnModificar1.setEnabled(false);
+                btnCancelar1.setEnabled(true);
                 btnCancelar1.setVisible(false);
-                btnInsertar1.setVisible(false);
                 btnGuardar1.setVisible(false);
-                btnGuardar1.setEnabled(false);
+                btnInsertar1.setVisible(false);
+
                 txtCoodigo.setText(null);
                 txtNombre.setText(null);
                 txtDescrip.setText(null);
@@ -148,6 +149,16 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
                 if (escueladao.eliminar(escuela) > 0) {
                     JOptionPane.showMessageDialog(this, "Escuela eliminada!!",
                             "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
+                    btnInsertar1.setEnabled(false);
+                    btnEliminar1.setEnabled(false);
+                    btnNuevo1.setEnabled(true);
+                    btnBuscar1.setEnabled(true);
+                    btnModificar1.setEnabled(false);
+                    btnCancelar1.setEnabled(true);
+                    btnCancelar1.setVisible(false);
+                    btnGuardar1.setVisible(false);
+                    btnInsertar1.setVisible(false);
+
                     txtCoodigo.setText(null);
                     txtNombre.setText(null);
                     txtDescrip.setText(null);
@@ -727,44 +738,61 @@ public class FrmEscuela extends javax.swing.JInternalFrame {
         Escuela escuela = new Escuela();
         IEscuela escueladao = new EscuelaImp();
         IFacultad facultaddao = new FacultadImp();
-        escuela.setCodigo(Integer.parseInt(this.txtCoodigo.getText()));
-
-        try {
-            escuela.setFacultad(facultaddao.obtener(((Facultad) cmbFacultad.getSelectedItem()).getCodigo()));
-        } catch (Exception ex6) {
-            JOptionPane.showMessageDialog(this, ex6.getMessage(),
-                    "Error en obtener la facultad", JOptionPane.INFORMATION_MESSAGE);
-        }
-        escuela.setNombre(this.txtNombre.getText());
-        escuela.setDescripcion(this.txtDescrip.getText());
-        escuela.setCodigo_Sicoa(Integer.parseInt(this.txtCodigoSicoa.getText()));
-
-        if (escueladao.insertar(escuela) > 0) {
-            JOptionPane.showMessageDialog(this, "Escuela insertado!!",
-                    "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
-            btnInsertar1.setEnabled(false);
-            btnEliminar1.setEnabled(false);
-            btnNuevo1.setEnabled(true);
-            btnBuscar1.setEnabled(true);
-            btnModificar1.setEnabled(false);
-            btnCancelar1.setEnabled(true);
-            btnCancelar1.setVisible(false);
-            btnGuardar1.setVisible(false);
-            btnInsertar1.setVisible(false);
-            txtCoodigo.setText(null);
-            txtNombre.setText(null);
-            txtDescrip.setText(null);
-            txtCodigoSicoa.setText(null);
-
-            txtCoodigo.setEnabled(true);
-            cmbFacultad.setEnabled(true);
-            txtNombre.setEnabled(true);
-            txtDescrip.setEnabled(false);
-            txtCodigoSicoa.setEnabled(false);
-            cargarTabla();
+        if (txtCoodigo.getText().isEmpty() || txtNombre.getText().isEmpty() || txtDescrip.getText().isEmpty() || txtCodigoSicoa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Existe Algun Campo Vacío", "Error!", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Escuela NO insertado!!",
-                    "Transacción no realizada", JOptionPane.INFORMATION_MESSAGE);
+            if (isNumeric(this.txtCoodigo.getText()) && isNumeric(this.txtCodigoSicoa.getText())) {
+
+                escuela.setCodigo(Integer.parseInt(this.txtCoodigo.getText()));
+
+                try {
+                    escuela.setFacultad(facultaddao.obtener(((Facultad) cmbFacultad.getSelectedItem()).getCodigo()));
+                } catch (Exception ex6) {
+                    JOptionPane.showMessageDialog(this, ex6.getMessage(),
+                            "Error en obtener la facultad", JOptionPane.INFORMATION_MESSAGE);
+                }
+                escuela.setNombre(this.txtNombre.getText());
+                escuela.setDescripcion(this.txtDescrip.getText());
+                escuela.setCodigo_Sicoa(Integer.parseInt(this.txtCodigoSicoa.getText()));
+                if (escuela.getCodigo() > 0) {
+
+                    if (escueladao.insertar(escuela) > 0) {
+                        JOptionPane.showMessageDialog(this, "Escuela insertado!!",
+                                "Satisfactorio", JOptionPane.INFORMATION_MESSAGE);
+                        btnInsertar1.setEnabled(false);
+                        btnEliminar1.setEnabled(false);
+                        btnNuevo1.setEnabled(true);
+                        btnBuscar1.setEnabled(true);
+                        btnModificar1.setEnabled(false);
+                        btnCancelar1.setEnabled(true);
+                        btnCancelar1.setVisible(false);
+                        btnGuardar1.setVisible(false);
+                        btnInsertar1.setVisible(false);
+
+                        txtCoodigo.setText(null);
+                        txtNombre.setText(null);
+                        txtDescrip.setText(null);
+                        txtCodigoSicoa.setText(null);
+
+                        txtCoodigo.setEnabled(true);
+                        cmbFacultad.setEnabled(true);
+                        txtNombre.setEnabled(true);
+                        txtDescrip.setEnabled(false);
+                        txtCodigoSicoa.setEnabled(false);
+                        cargarTabla();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Escuela NO insertado!!",
+                                "Transacción no realizada", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "El coigo ingresado no es valido: debe ser enteros positivos... intente con otro codigo",
+                            "Codigo de no admitido", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El CODIGO o CODIGO SICOA ingresado no es valido:\n Debe ser enteros positivos... intente con otro codigo",
+                        "Codigo de no admitido", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         }
     }//GEN-LAST:event_btnInsertar1ActionPerformed
 
