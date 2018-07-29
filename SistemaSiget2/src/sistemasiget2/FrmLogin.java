@@ -6,13 +6,18 @@
 package sistemasiget2;
 
 import com.mxrck.autocompleter.TextAutoCompleter;
-import ec.edu.unach.siget.dao.contrato.IEscuela;
+
+import ec.edu.unach.siget.dao.contrato.IRol;
 import ec.edu.unach.siget.dao.contrato.IUsuario;
-import ec.edu.unach.siget.dao.implementacion.EscuelaImp;
+import ec.edu.unach.siget.dao.contrato.IUsuario_Rol;
+
+import ec.edu.unach.siget.dao.implementacion.RolImp;
 import ec.edu.unach.siget.dao.implementacion.UsuarioImp;
-import ec.edu.unach.siget.rnegocio.entidades.Escuela;
+import ec.edu.unach.siget.dao.implementacion.Usuario_RolImp;
+
+import ec.edu.unach.siget.rnegocio.entidades.Rol;
 import ec.edu.unach.siget.rnegocio.entidades.Usuario;
-import java.awt.Frame;
+import ec.edu.unach.siget.rnegocio.entidades.Usuario_Rol;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -40,20 +45,30 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("../ec/edu/unach/siget/rnegocio/Imagenes/LogoUnach.jpg")).getImage());
 
-
         auto = new TextAutoCompleter(txtUsuarios);
         IUsuario productodao = new UsuarioImp();
-        List<Usuario> lstProducto = new ArrayList<>();
+        List<Usuario> lstusuario = new ArrayList<>();
         try {
-            lstProducto = productodao.obtener();
+            lstusuario = productodao.obtener();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Error", JOptionPane.INFORMATION_MESSAGE);
         }
-        for (int i = 0; i < lstProducto.size(); i++) {
-            auto.addItem(lstProducto.get(i).getCodigo());
+        for (int i = 0; i < lstusuario.size(); i++) {
+            auto.addItem(lstusuario.get(i).getIdentificacion());
         }
-        
+
+        IRol roldao = new RolImp();
+        List<Rol> lstRol = new ArrayList<>();
+        try {
+            lstRol = roldao.obtener();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        for (int i = 0; i < lstRol.size(); i++) {
+            cmbRolUsuario.addItem(lstRol.get(i));
+        }
         InputMap map = new InputMap();
 
         map.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "pressed");
@@ -78,6 +93,8 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtUsuarios = new javax.swing.JTextField();
+        cmbRolUsuario = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -108,7 +125,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtClave);
-        txtClave.setBounds(340, 130, 167, 30);
+        txtClave.setBounds(340, 110, 180, 30);
 
         btnAceptar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/unach/siget/rnegocio/Imagenes/Aceptar.png"))); // NOI18N
@@ -120,7 +137,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAceptar);
-        btnAceptar.setBounds(230, 180, 130, 40);
+        btnAceptar.setBounds(230, 210, 130, 40);
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/unach/siget/rnegocio/Imagenes/Cancelar.png"))); // NOI18N
@@ -131,20 +148,20 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(370, 180, 140, 40);
+        btnCancelar.setBounds(380, 210, 140, 40);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/unach/siget/rnegocio/Imagenes/Llave.png"))); // NOI18N
         jLabel2.setText("CLAVE:");
         jLabel2.setAutoscrolls(true);
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(240, 120, 90, 40);
+        jLabel2.setBounds(250, 100, 90, 40);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/unach/siget/rnegocio/Imagenes/User.png"))); // NOI18N
         jLabel3.setText("USUARIO:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(240, 80, 91, 40);
+        jLabel3.setBounds(240, 60, 91, 40);
 
         txtUsuarios.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtUsuarios.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +170,20 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtUsuarios);
-        txtUsuarios.setBounds(340, 90, 170, 30);
+        txtUsuarios.setBounds(340, 60, 180, 30);
+
+        cmbRolUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRolUsuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbRolUsuario);
+        cmbRolUsuario.setBounds(290, 10, 240, 30);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Rol Usuario:");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(190, 20, 80, 20);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/unach/siget/rnegocio/Imagenes/sigetLogo.jpg"))); // NOI18N
         jLabel1.setLabelFor(jLabel1);
@@ -162,7 +192,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel1.setInheritsPopupMenu(false);
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 20, 530, 250);
+        jLabel1.setBounds(0, 0, 540, 270);
 
         getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
@@ -197,18 +227,34 @@ public class FrmLogin extends javax.swing.JFrame {
         }
     }
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+
         FrmPrincipal Principal = new FrmPrincipal();
-        Usuario miUsuario = new Usuario();
-        if (miUsuario.ValidarUsurio(txtUsuarios.getText(), new String(txtClave.getPassword())) != 1) {
-            JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña Incorrecta");
-            txtClave.setText("");
-            return;
-        }
-        this.setVisible(false);
-        usuario.setIdentificacion(txtUsuarios.getText());
+        Usuario_Rol miUsuario = new Usuario_Rol();
+        IUsuario_Rol usuario_rol = new Usuario_RolImp();
+        if (txtUsuarios.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Existe Algun Campo Vacío", "Error!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                if (usuario_rol.obtener((((Rol) cmbRolUsuario.getSelectedItem()).getCodigo()), txtUsuarios.getText(), new String(txtClave.getPassword())) == null) {
+                    try {
+                    } catch (Exception ex) {
+                        Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña Incorrecta");
+                    txtClave.setText("");
+                    return;
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.setVisible(false);
+
+            usuario.setIdentificacion(txtUsuarios.getText());
 //        Principal.txtUsuarios.setText(miUsuario.getUsuario2().getNombre()+" "+ miUsuario.getUsuario2().getApellido());
-        Principal.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        Principal.setVisible(true);
+            Principal.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            Principal.setVisible(true);
+        }
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -227,6 +273,10 @@ public class FrmLogin extends javax.swing.JFrame {
     private void txtUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuariosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuariosActionPerformed
+
+    private void cmbRolUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRolUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbRolUsuarioActionPerformed
 
     private static final Logger LOG = Logger.getLogger(FrmLogin.class
             .getName());
@@ -280,9 +330,11 @@ public class FrmLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox cmbRolUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField txtClave;
     private javax.swing.JTextField txtUsuarios;
     // End of variables declaration//GEN-END:variables

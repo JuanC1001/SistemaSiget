@@ -6,7 +6,9 @@
 package ec.edu.unach.siget.dao.implementacion;
 
 import ec.edu.unach.siget.accesodatos.conexion;
+import ec.edu.unach.siget.accesodatos.parametro;
 import ec.edu.unach.siget.dao.contrato.IUsuario;
+import ec.edu.unach.siget.rnegocio.entidades.Facultad;
 import ec.edu.unach.siget.rnegocio.entidades.Usuario;
 import ec.edu.unach.siget.rnegocio.entidades.Usuario;
 import java.sql.ResultSet;

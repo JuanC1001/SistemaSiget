@@ -16,7 +16,7 @@ public interface IUsuario_Rol {
     int insertar (Usuario_Rol usuario_rol);
      int eliminar (Usuario_Rol usuario_rol);
       int modificar (Usuario_Rol usuario_rol);
-      Usuario_Rol obtener(int id)throws Exception;
+      Usuario_Rol obtener(int rol, String ident, String clave)throws Exception;
     List<Usuario_Rol> obtener()throws Exception;
     
 }
