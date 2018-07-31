@@ -17,6 +17,7 @@ public class Estudiante {
     private int Codigo_Sicoa;
     private int Codigo_Periodo;
     private int Codigo_Nivel; 
+    private int Codigo_Nive; 
     public Estudiante(){
     }
 
